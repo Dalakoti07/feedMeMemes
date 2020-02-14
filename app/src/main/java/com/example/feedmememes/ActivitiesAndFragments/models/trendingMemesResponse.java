@@ -20,6 +20,10 @@ public class trendingMemesResponse {
     }
 
     public class memesData{
+        @SerializedName("title")
+        @Expose
+        private String title;
+
         @SerializedName("images")
         @Expose
         private imageObject images;
@@ -30,6 +34,14 @@ public class trendingMemesResponse {
 
         public void setImages(imageObject images) {
             this.images = images;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
         }
     }
 }

@@ -9,4 +9,7 @@ import retrofit2.http.Query;
 public interface endPoints {
     @GET("/v1/gifs/trending")
     Call<trendingMemesResponse> getTrendingMemes(@Query("api_key") String api_key, @Query("limit") String limit, @Query("rating") String rating);
+
+    @GET("/v1/gifs/search")
+    Call<trendingMemesResponse> getSearchedMemes(@Query("q") String searchedTerm,@Query("api_key") String api_key, @Query("limit") String limit );
 }

@@ -7,9 +7,9 @@
     android:layout_height="fill_parent">
 
     <ImageView android:id="@+id/splashscreen_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/gif_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/laugh_icon"
         android:layout_gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

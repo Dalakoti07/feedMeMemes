@@ -2,15 +2,19 @@ package com.example.feedmememes.ActivitiesAndFragments.adapter;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.R;
 
@@ -39,11 +43,16 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull memesAdapter.ViewHolder holder, int position) {
-                Glide.with(parentView)
+        holder.gif_title.setText(mArray.get(position).getTitle());
+//        see how to put place holder while image is loading
+        Glide.with(parentView)
                 .load(mArray.get(position).getUrl())
                 .centerCrop()
-                .placeholder(R.drawable.ic_loading_48)
+                .thumbnail(0.1f)
                 .into(holder.imageView);
+
+        Log.d("commonTag"," title is "+mArray.get(position).getTitle());
+
     }
 
     @Override
@@ -53,9 +62,11 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        TextView gif_title;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.memeImageView);
+            gif_title=itemView.findViewById(R.id.gif_title);
         }
     }
 }
