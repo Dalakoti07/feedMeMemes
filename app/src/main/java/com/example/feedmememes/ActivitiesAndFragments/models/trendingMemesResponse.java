@@ -19,7 +19,7 @@ public class trendingMemesResponse {
         this.data = data;
     }
 
-    private class memesData{
+    public class memesData{
         @SerializedName("images")
         @Expose
         private imageObject images;
