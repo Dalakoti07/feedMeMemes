@@ -1,8 +1,10 @@
-package com.example.feedmememes;
+package com.example.feedmememes.ActivitiesAndFragments;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.feedmememes.R;
 
 public class MainActivity extends AppCompatActivity {
 
