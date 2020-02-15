@@ -2,7 +2,10 @@ package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
 
 
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -83,7 +86,19 @@ public class searchMemesFragment extends Fragment {
                 return false;
             }
         });
+        BroadcastReceiver receiver = new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)){
+                    Toast.makeText(context, "Download done ", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG," receiver caught it");
+                }
+            }
+        };
+        Objects.requireNonNull(getActivity()).registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
+
     private void getDefaultMemes(memesViewModel memesViewModel){
         memesViewModel.getTrending().observe(this, new Observer<trendingMemesResponse>() {
             @Override
@@ -95,7 +110,12 @@ public class searchMemesFragment extends Fragment {
                         imageDetails temporaryImage= each.getImages().getOriginal();
                         temporaryImage.setTitle(each.getTitle());
 //                        Log.d(TAG," title is "+each.getTitle());
-                        manager.enqueue(requestForDownload.getRequest(temporaryImage.getUrl(),each.getTitle(),temporaryImage.getHash()));
+                        DownloadManager.Request request=requestForDownload.getRequest(temporaryImage.getUrl(),each.getTitle(),temporaryImage.getHash());
+                        if(request!=null){
+                            manager.enqueue(request);
+                        }else{
+//                            get the info about meme other way either from db or file props
+                        }
                         imageList.add(temporaryImage);
                     }
                     memesAdapter.notifyDataSetChanged();

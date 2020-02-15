@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
+import java.io.File;
+
 public class requestForDownload {
 //    credits to https://stackoverflow.com/questions/3028306/download-a-file-with-android-and-showing-the-progress-in-a-progressdialog
 
@@ -16,9 +18,17 @@ public class requestForDownload {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setDescription("downloading memes");
         request.setTitle(title);
-
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Namehash+".gif")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
-        return request;
+//      check if a file is already present or not
+        File file=new File(Environment.DIRECTORY_DOWNLOADS+Namehash+".gif");
+        boolean isPresent=false;
+        if(file.isFile()){
+            isPresent=true;
+        }
+        if(!isPresent){
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, Namehash+".gif");
+            return request;
+        }
+//                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+        return null;
     }
 }
