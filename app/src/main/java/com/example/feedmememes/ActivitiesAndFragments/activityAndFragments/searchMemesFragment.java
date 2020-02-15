@@ -1,0 +1,121 @@
+package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
+
+
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter;
+import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
+import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
+import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
+import com.example.feedmememes.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class searchMemesFragment extends Fragment {
+    String urls="";
+    private String TAG="commonTag";
+    ArrayList<imageDetails> imageList= new ArrayList<>();
+    final com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter memesAdapter= new memesAdapter(imageList);
+    private RecyclerView recyclerView;
+    private SearchView searchView;
+
+    public searchMemesFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view= inflater.inflate(R.layout.fragment_search_memes, container, false);
+        recyclerView=view.findViewById(R.id.memesRecyclerView);
+        searchView=view.findViewById(R.id.search_view);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+//        RecyclerView recyclerView= findViewById(R.id.memesRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(memesAdapter);
+        final memesViewModel memesViewModel= ViewModelProviders.of(this).get(com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel.class);
+        getDefaultMemes(memesViewModel);
+//        final SearchView searchView=findViewById(R.id.search_view);
+        searchView.setQueryHint("Enter Keyword to search");
+        searchView.setActivated(true);
+        searchView.setIconified(false);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                called when we click search button keypad
+//                Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+                getSearchMemes(memesViewModel,query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+    private void getDefaultMemes(memesViewModel memesViewModel){
+        memesViewModel.getTrending().observe(this, new Observer<trendingMemesResponse>() {
+            @Override
+            public void onChanged(trendingMemesResponse trendingMemesResponse) {
+                if(trendingMemesResponse.getData().size()>0){
+                    Log.d(TAG," size is response is "+trendingMemesResponse.getData().size());
+                    List<com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData> memesDataList=trendingMemesResponse.getData();
+                    for (com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData each: memesDataList){
+                        imageDetails temporaryImage= each.getImages().getOriginal();
+                        temporaryImage.setTitle(each.getTitle());
+//                        Log.d(TAG," title is "+each.getTitle());
+                        imageList.add(temporaryImage);
+                    }
+                    memesAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void getSearchMemes(memesViewModel memesViewModel,String searchedTerm){
+        memesViewModel.getSearchedMemes(searchedTerm).observe(this, new Observer<trendingMemesResponse>() {
+            @Override
+            public void onChanged(trendingMemesResponse trendingMemesResponse) {
+                if(trendingMemesResponse.getData().size()>0){
+                    Toast.makeText(getActivity(), "got some response and size is "+trendingMemesResponse.getData().size(), Toast.LENGTH_SHORT).show();
+                    imageList.clear();
+                    List<com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData> memesDataList=trendingMemesResponse.getData();
+                    for (com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData each: memesDataList){
+                        imageDetails temporaryImage= each.getImages().getOriginal();
+                        temporaryImage.setTitle(each.getTitle());
+                        imageList.add(temporaryImage);
+                    }
+                    memesAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+}
