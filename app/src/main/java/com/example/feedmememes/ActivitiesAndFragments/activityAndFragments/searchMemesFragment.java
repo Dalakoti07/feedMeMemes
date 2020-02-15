@@ -91,7 +91,8 @@ public class searchMemesFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
                 if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)){
-                    Toast.makeText(context, "Download done ", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Download done ", Toast.LENGTH_SHORT).show();
+
                     Log.d(TAG," receiver caught it");
                 }
             }
@@ -110,11 +111,12 @@ public class searchMemesFragment extends Fragment {
                         imageDetails temporaryImage= each.getImages().getOriginal();
                         temporaryImage.setTitle(each.getTitle());
 //                        Log.d(TAG," title is "+each.getTitle());
-                        DownloadManager.Request request=requestForDownload.getRequest(temporaryImage.getUrl(),each.getTitle(),temporaryImage.getHash());
+                        DownloadManager.Request request=requestForDownload.getRequest(temporaryImage.getUrl(),each.getTitle(),temporaryImage.getHash(), Objects.requireNonNull(getContext()));
                         if(request!=null){
                             manager.enqueue(request);
                         }else{
 //                            get the info about meme other way either from db or file props
+                            Toast.makeText(getActivity(), "file already exist ", Toast.LENGTH_SHORT).show();
                         }
                         imageList.add(temporaryImage);
                     }

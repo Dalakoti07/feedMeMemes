@@ -21,7 +21,7 @@ public class memesRepository {
 
     public MutableLiveData<trendingMemesResponse> getTrending (){
         final MutableLiveData<trendingMemesResponse> responseFromServer = new MutableLiveData<>();
-        Call<trendingMemesResponse> call=  apiEndPoints.getTrendingMemes("i6jz4m1kp7F6vrvSucmIWrQWVWfbJiGC","5","G");
+        Call<trendingMemesResponse> call=  apiEndPoints.getTrendingMemes("i6jz4m1kp7F6vrvSucmIWrQWVWfbJiGC","2","G");
         call.enqueue(new Callback<trendingMemesResponse>() {
             @Override
             public void onResponse(Call<trendingMemesResponse> call, Response<trendingMemesResponse> response) {
