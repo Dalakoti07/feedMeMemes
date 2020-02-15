@@ -15,12 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.R;
 
 import java.util.ArrayList;
 
 public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> {
+//    optimization for glide inspired from https://github.com/bumptech/glide/issues/1779
+//    one way remaining
     private ArrayList<imageDetails> mArray= new ArrayList<>();
     private View parentView;
     public memesAdapter(ArrayList<imageDetails> mArray){
@@ -48,6 +51,7 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
         Glide.with(parentView)
                 .load(mArray.get(position).getUrl())
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
@@ -68,5 +72,10 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
             imageView=itemView.findViewById(R.id.memeImageView);
             gif_title=itemView.findViewById(R.id.gif_title);
         }
+
+        public void recycle() {
+            Glide.with(itemView).clear(imageView);
+        }
     }
+
 }

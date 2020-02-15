@@ -1,10 +1,17 @@
 package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.feedmememes.R;
 
@@ -17,7 +24,7 @@ public class Splash extends AppCompatActivity {
 
 
         setContentView(R.layout.splash_screen);
-//        Objects.requireNonNull(getSupportActionBar()).hide();
+
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
         /** Duration of wait **/
@@ -31,5 +38,7 @@ public class Splash extends AppCompatActivity {
                 Splash.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+
     }
+
 }

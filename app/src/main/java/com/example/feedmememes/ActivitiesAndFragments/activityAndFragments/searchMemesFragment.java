@@ -1,6 +1,9 @@
 package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
 
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -20,17 +23,19 @@ import android.widget.Toast;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
+import com.example.feedmememes.ActivitiesAndFragments.network.requestForDownload;
 import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
 import com.example.feedmememes.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class searchMemesFragment extends Fragment {
-    String urls="";
+    private DownloadManager manager = null;
     private String TAG="commonTag";
     ArrayList<imageDetails> imageList= new ArrayList<>();
     final com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter memesAdapter= new memesAdapter(imageList);
@@ -43,12 +48,12 @@ public class searchMemesFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_search_memes, container, false);
         recyclerView=view.findViewById(R.id.memesRecyclerView);
         searchView=view.findViewById(R.id.search_view);
+        manager=(DownloadManager) Objects.requireNonNull(getActivity()).getSystemService(Context.DOWNLOAD_SERVICE);
         return view;
     }
 
@@ -56,12 +61,10 @@ public class searchMemesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        RecyclerView recyclerView= findViewById(R.id.memesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(memesAdapter);
         final memesViewModel memesViewModel= ViewModelProviders.of(this).get(com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel.class);
         getDefaultMemes(memesViewModel);
-//        final SearchView searchView=findViewById(R.id.search_view);
         searchView.setQueryHint("Enter Keyword to search");
         searchView.setActivated(true);
         searchView.setIconified(false);
@@ -92,6 +95,7 @@ public class searchMemesFragment extends Fragment {
                         imageDetails temporaryImage= each.getImages().getOriginal();
                         temporaryImage.setTitle(each.getTitle());
 //                        Log.d(TAG," title is "+each.getTitle());
+                        manager.enqueue(requestForDownload.getRequest(temporaryImage.getUrl(),each.getTitle(),temporaryImage.getHash()));
                         imageList.add(temporaryImage);
                     }
                     memesAdapter.notifyDataSetChanged();
@@ -118,4 +122,14 @@ public class searchMemesFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (recyclerView != null) {
+            recyclerView.setAdapter(null);
+            recyclerView = null;
+        }
+    }
+
+
 }
