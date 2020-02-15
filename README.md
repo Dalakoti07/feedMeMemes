@@ -1,7 +1,7 @@
 # feedMeMemes
 An android App that show you best of all time memes and make your own memes and share them to show your sense of humor and creativity
 
-#Technical Features
+# Technical Features
 1. Room databse implemented so that application can work without internet
 2. Clean architecture and best pratices implemented
 3. Clean and asthetic appealing UI
@@ -11,6 +11,6 @@ An android App that show you best of all time memes and make your own memes and 
 7. Scroll unlimited to get more and more memes
 
 
-##Credits
+## Credits
 1. [source for icon] (https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg)
 2. 
