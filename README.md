@@ -18,3 +18,5 @@ An android App that show you best of all time memes and make your own memes and 
 ## Issues
 1. view gone in rv button
 2. usage of same rv in random and fav memes
+3. Download image/gifs in app folder and show it in gallery too
+4. set 12 different themes for app and store status bar color and app bar color in shared prefs
