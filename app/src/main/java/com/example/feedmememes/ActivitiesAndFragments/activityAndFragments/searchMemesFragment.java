@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter;
+import com.example.feedmememes.ActivitiesAndFragments.adapter.swipeController;
+import com.example.feedmememes.ActivitiesAndFragments.adapter.swipeControllerActions;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
 import com.example.feedmememes.ActivitiesAndFragments.network.requestForDownload;
@@ -66,6 +69,9 @@ public class searchMemesFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(memesAdapter);
+        swipeController swipeController = new swipeController(new swipeControllerActions());
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
         final memesViewModel memesViewModel= ViewModelProviders.of(this).get(com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel.class);
         getDefaultMemes(memesViewModel);
         searchView.setQueryHint("Enter Keyword to search");
@@ -86,18 +92,7 @@ public class searchMemesFragment extends Fragment {
                 return false;
             }
         });
-        BroadcastReceiver receiver = new BroadcastReceiver(){
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)){
-//                    Toast.makeText(context, "Download done ", Toast.LENGTH_SHORT).show();
 
-                    Log.d(TAG," receiver caught it");
-                }
-            }
-        };
-        Objects.requireNonNull(getActivity()).registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     private void getDefaultMemes(memesViewModel memesViewModel){
@@ -110,14 +105,6 @@ public class searchMemesFragment extends Fragment {
                     for (com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData each: memesDataList){
                         imageDetails temporaryImage= each.getImages().getOriginal();
                         temporaryImage.setTitle(each.getTitle());
-//                        Log.d(TAG," title is "+each.getTitle());
-                        DownloadManager.Request request=requestForDownload.getRequest(temporaryImage.getUrl(),each.getTitle(),temporaryImage.getHash(), Objects.requireNonNull(getContext()));
-                        if(request!=null){
-                            manager.enqueue(request);
-                        }else{
-//                            get the info about meme other way either from db or file props
-                            Toast.makeText(getActivity(), "file already exist ", Toast.LENGTH_SHORT).show();
-                        }
                         imageList.add(temporaryImage);
                     }
                     memesAdapter.notifyDataSetChanged();
