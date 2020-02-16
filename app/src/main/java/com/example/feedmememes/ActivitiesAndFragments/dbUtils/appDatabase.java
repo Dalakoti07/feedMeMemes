@@ -30,8 +30,6 @@ public abstract class appDatabase extends RoomDatabase {
                 @Override
                 public void run() {
                     memesDBObjectDao dao= INSTANCE.getMemesDBObjectDao();
-                    dao.insert(new memesDBObject("2343iohjsa","/android/apth/feedMeMemmes","New pic","trending"));
-                    dao.insert(new memesDBObject("2343iohjsb","/android/apth/feedMeMemmes2","New pic 3","trending hai"));
                 }
             });
         }
