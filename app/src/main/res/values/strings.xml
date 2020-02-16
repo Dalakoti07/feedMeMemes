@@ -3,4 +3,27 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="primaryOne">#3D5AFE</string>
+    <string name="primaryDarkOne">#1A237E</string>
+
+    <string name="primaryTwo">#AD1457</string>
+    <string name="primaryDarkTwo">#880E4F</string>
+
+    <string name="primaryThree">#26C6DA</string>
+    <string name="primaryDarkThree">#00838F</string>
+
+    <string name="primaryFour">#E6EE9C</string>
+    <string name="primaryDarkFour">#C0CA33</string>
+
+    <string name="primaryFive">#FB8C00</string>
+    <string name="primaryDarkFive">#E65100</string>
+
+    <string name="primarySix">#FFAB91</string>
+    <string name="primaryDarkSix">#BF360C</string>
+
+    <string name="primarySeven">#A5D6A7</string>
+    <string name="primaryDarkSeven">#388E3C</string>
+
 </resources>

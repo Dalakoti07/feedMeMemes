@@ -1,22 +1,36 @@
 package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.feedmememes.ActivitiesAndFragments.adapter.mainPageAdapter;
 import com.example.feedmememes.R;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     String urls="";
+    private int primaryDarkCode=R.string.primaryDarkOne,primaryCode=R.string.primaryOne;
     private String TAG="commonTag";
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +43,33 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         isStoragePermissionGranted();
 
+//        set status bar and app bar color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            Log.d("commonLog","color fro status bar is "+getString(R.string.primaryDarkOne));
+            getRandomColorsCodes();
+            window.setStatusBarColor(Color.parseColor(getString(primaryDarkCode)));
+            Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(Color.parseColor(getResources().getString(primaryCode))));
+        }
+    }
+
+    private void getRandomColorsCodes() {
+        ArrayList<Integer> primaryColorsList=new ArrayList<>();
+        ArrayList<Integer> primaryDarkColorList= new ArrayList<>();
+
+        // fill the primaryColor
+        primaryColorsList.add(R.string.primaryOne);primaryColorsList.add(R.string.primaryTwo);primaryColorsList.add(R.string.primaryThree);primaryColorsList.add(R.string.primaryFour);
+        primaryColorsList.add(R.string.primaryFive);primaryColorsList.add(R.string.primarySix);primaryColorsList.add(R.string.primarySeven);
+        // fill the primaryDark
+        primaryDarkColorList.add(R.string.primaryDarkOne);primaryDarkColorList.add(R.string.primaryDarkTwo);primaryDarkColorList.add(R.string.primaryDarkThree);
+        primaryDarkColorList.add(R.string.primaryDarkFour);primaryDarkColorList.add(R.string.primaryDarkFive);primaryDarkColorList.add(R.string.primaryDarkSix);primaryDarkColorList.add(R.string.primaryDarkSeven);
+
+        // generate random number and set color
+        Random rand = new Random();
+        int index =rand.nextInt(7);
+        primaryCode=primaryColorsList.get(index);
+        primaryDarkCode=primaryDarkColorList.get(index);
     }
 
     private   boolean isStoragePermissionGranted() {
