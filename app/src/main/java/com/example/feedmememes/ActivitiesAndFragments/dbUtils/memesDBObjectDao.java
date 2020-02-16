@@ -18,7 +18,10 @@ public interface memesDBObjectDao {
     LiveData<List<memesDBObject>> getAll();
 
     @Query("SELECT * FROM meme_table WHERE type IN (:type)")
-    LiveData<List<memesDBObject>> loadAllByIds(String[] type);
+    LiveData<List<memesDBObject>> loadAllByType(String[] type);
+
+    @Query("SELECT * FROM meme_table WHERE id=:id")
+    LiveData<List<memesDBObject>> getRowById(String id);
 
     @Insert
     void insertAll(memesDBObject... memes);

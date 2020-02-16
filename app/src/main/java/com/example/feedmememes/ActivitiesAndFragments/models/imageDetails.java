@@ -91,4 +91,10 @@ public class imageDetails {
     public void setWidth(String width) {
         this.width = width;
     }
+
+    public imageDetails(String hash, String url, String title) {
+        this.hash = hash;
+        this.url = url;
+        this.title = title;
+    }
 }

@@ -17,6 +17,8 @@ enum ButtonsState {
     LEFT_VISIBLE
 }
 public class swipeController extends ItemTouchHelper.Callback {
+
+//    this is called android swipe menu with recyclerview
     private boolean swipeBack = false;
     private ButtonsState buttonShowedState = ButtonsState.GONE;
     private static final float buttonWidth = 300;
@@ -100,8 +102,8 @@ public class swipeController extends ItemTouchHelper.Callback {
 
                     if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
                         if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
-                            buttonsActions.onLeftClicked(viewHolder.getAdapterPosition());
                             buttonInstance.setEmpty();
+                            buttonsActions.onLeftClicked(viewHolder.getAdapterPosition());
                         }
                     }
                     buttonShowedState = ButtonsState.GONE;

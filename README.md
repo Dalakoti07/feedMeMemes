@@ -14,3 +14,7 @@ An android App that show you best of all time memes and make your own memes and 
 ## Credits
 1. [source for icon] (https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg)
 2. 
+
+## Issues
+1. view gone in rv button
+2. usage of same rv in random and fav memes

@@ -20,8 +20,6 @@ public class dbRepository {
         mAllWords = memeDao.getAll();
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
     LiveData<List<memesDBObject>> getAllWords() {
         return mAllWords;
     }
@@ -37,4 +35,7 @@ public class dbRepository {
         });
     }
 
+    LiveData<List<memesDBObject>> getById(String id){
+        return memeDao.getRowById(id);
+    }
 }

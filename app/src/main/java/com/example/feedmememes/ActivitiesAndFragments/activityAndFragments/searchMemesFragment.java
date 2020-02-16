@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +30,9 @@ import android.widget.Toast;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.swipeController;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.swipeControllerActions;
+import com.example.feedmememes.ActivitiesAndFragments.dbUtils.dbViewModel;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
+import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
 import com.example.feedmememes.ActivitiesAndFragments.network.requestForDownload;
 import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
@@ -46,7 +49,7 @@ public class searchMemesFragment extends Fragment {
     private DownloadManager manager = null;
     private String TAG="commonTag";
     ArrayList<imageDetails> imageList= new ArrayList<>();
-    final com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter memesAdapter= new memesAdapter(imageList);
+    private final com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter memesAdapter= new memesAdapter(imageList);
     private RecyclerView recyclerView;
     private SearchView searchView;
 
@@ -68,13 +71,25 @@ public class searchMemesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        final dbViewModel mdbViewModel = new ViewModelProvider(this).get(dbViewModel.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(memesAdapter);
         final swipeController swipeController = new swipeController(new swipeControllerActions(){
             @Override
             public void onLeftClicked(int position) {
-                Toast.makeText(getActivity(), "Clicked at position "+position, Toast.LENGTH_SHORT).show();
+                final memesDBObject object=memesAdapter.getObjectAtPosition(position);
+                mdbViewModel.getById(object.getImageId()).observe(searchMemesFragment.this, new Observer<List<memesDBObject>>() {
+                    @Override
+                    public void onChanged(List<memesDBObject> memesDBObjects) {
+                        if(memesDBObjects.size()==0){
+                            Toast.makeText(getActivity(), "Added ", Toast.LENGTH_SHORT).show();
+                            mdbViewModel.insert(object);
+                        }else{
+                            Toast.makeText(getActivity(), "Already exist", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG,"and name is "+memesDBObjects.get(0).getTitle());
+                        }
+                    }
+                });
             }
         });
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
@@ -144,6 +159,7 @@ public class searchMemesFragment extends Fragment {
             }
         });
     }
+
     @Override
     public void onDetach() {
         super.onDetach();

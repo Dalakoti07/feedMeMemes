@@ -1,6 +1,5 @@
 package com.example.feedmememes.ActivitiesAndFragments.adapter;
 
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -16,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
@@ -28,18 +26,17 @@ import com.example.feedmememes.R;
 
 import java.util.ArrayList;
 
-public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> {
-//    optimization for glide inspired from https://github.com/bumptech/glide/issues/1779
-//    one way remaining
+public class favMemesAdapter extends RecyclerView.Adapter<favMemesAdapter.ViewHolder>{
     private ArrayList<imageDetails> mArray= new ArrayList<>();
     private View parentView;
-    public memesAdapter(ArrayList<imageDetails> mArray){
+
+    public favMemesAdapter(ArrayList<imageDetails> mArray){
         this.mArray=mArray;
     }
 
     @NonNull
     @Override
-    public memesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public favMemesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         parentView=parent;
@@ -47,19 +44,18 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
         View contactView = inflater.inflate(R.layout.each_meme_layout, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        favMemesAdapter.ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final memesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final favMemesAdapter.ViewHolder holder, int position) {
         holder.gif_title.setText(mArray.get(position).getTitle());
 //        see how to put place holder while image is loading
         holder.progressBar.setVisibility(View.VISIBLE);
         Glide.with(parentView)
                 .load(mArray.get(position).getUrl())
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .thumbnail(0.1f)
                 .listener(new RequestListener<Drawable>() {
                     @Override

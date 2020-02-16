@@ -23,4 +23,6 @@ public class dbViewModel extends AndroidViewModel {
     public LiveData<List<memesDBObject>> getAllWords() { return mAllWords; }
 
     public void insert(memesDBObject word) { mRepository.insert(word); }
+
+    public LiveData<List<memesDBObject>> getById(String id){return mRepository.getById(id);}
 }
