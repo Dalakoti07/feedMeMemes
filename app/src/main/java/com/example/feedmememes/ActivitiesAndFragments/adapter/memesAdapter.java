@@ -3,6 +3,7 @@ package com.example.feedmememes.ActivitiesAndFragments.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import com.example.feedmememes.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> {
@@ -55,27 +57,35 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull final memesAdapter.ViewHolder holder, int position) {
         holder.gif_title.setText(mArray.get(position).getTitle());
 //        see how to put place holder while image is loading
-//        holder.progressBar.setVisibility(View.VISIBLE);
-//        Glide.with(parentView)
-//                .load(mArray.get(position).getUrl())
-//                .centerCrop()
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .thumbnail(0.1f)
-//                .listener(new RequestListener<Drawable>() {
-//                    @Override
-//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        holder.progressBar.setVisibility(View.GONE);
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                        holder.progressBar.setVisibility(View.GONE);
-//                        return false;
-//                    }
-//                })
-//                .into(holder.imageView);
+        holder.progressBar.setVisibility(View.VISIBLE);
+        if(mArray.get(position).isDownloaded()){
+         Glide.with(parentView)
+                 .load(mArray.get(position).getUri())//Uri.fromFile(new File(mArray.get(position).getHash()))
+                  .into(holder.imageView);
+         Log.d("commonLogs"," path was "+mArray.get(position).getUrl());
+         Log.d("commonLogs"," loading from file system uri is "+Uri.fromFile(new File(mArray.get(position).getUrl())));
+         holder.progressBar.setVisibility(View.GONE);
+        }else{
+            Glide.with(parentView)
+                    .load(mArray.get(position).getUrl())
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .thumbnail(0.1f)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            holder.progressBar.setVisibility(View.GONE);
+                            return false;
+                        }
 
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.progressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .into(holder.imageView);
+        }
     }
 
     @Override

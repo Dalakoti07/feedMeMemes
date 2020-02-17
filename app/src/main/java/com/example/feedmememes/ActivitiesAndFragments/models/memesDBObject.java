@@ -3,6 +3,7 @@ package com.example.feedmememes.ActivitiesAndFragments.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "meme_table")
@@ -20,6 +21,26 @@ public class memesDBObject {
 
     @ColumnInfo(name="type")
     public String type;
+    @Ignore
+    private boolean downloaded;
+
+    public boolean isDownloaded() {
+        return downloaded;
+    }
+    @Ignore
+    public String uriPath;
+
+    public String getUriPath() {
+        return uriPath;
+    }
+
+    public void setUriPath(String uriPath) {
+        this.uriPath = uriPath;
+    }
+
+    public void setDownloaded(boolean downloaded) {
+        this.downloaded = downloaded;
+    }
 
     public String getImageId() {
         return imageId;

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,20 +43,25 @@ import com.example.feedmememes.ActivitiesAndFragments.network.requestForDownload
 import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
 import com.example.feedmememes.R;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class searchMemesFragment extends Fragment {
-    private DownloadManager manager = null;
+public class searchMemesFragment extends Fragment implements downloadResultReceiver.callDB{
+//    private DownloadManager manager = null;
     private String TAG="commonTag";
     ArrayList<imageDetails> imageList= new ArrayList<>();
     private final com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter memesAdapter= new memesAdapter(imageList);
     private RecyclerView recyclerView;
     private SearchView searchView;
+    private dbViewModel mdbViewModel;
 
     public searchMemesFragment() {
         // Required empty public constructor
@@ -67,37 +74,28 @@ public class searchMemesFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_search_memes, container, false);
         recyclerView=view.findViewById(R.id.memesRecyclerView);
         searchView=view.findViewById(R.id.search_view);
-        manager=(DownloadManager) Objects.requireNonNull(getActivity()).getSystemService(Context.DOWNLOAD_SERVICE);
+//        manager=(DownloadManager) Objects.requireNonNull(getActivity()).getSystemService(Context.DOWNLOAD_SERVICE);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final dbViewModel mdbViewModel = new ViewModelProvider(this).get(dbViewModel.class);
+        mdbViewModel = new ViewModelProvider(this).get(dbViewModel.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(memesAdapter);
         final swipeController swipeController = new swipeController(new swipeControllerActions(){
             @Override
-            public void onLeftClicked(int position) {
+            public void onLeftClicked(final int position) {
                 final memesDBObject object=memesAdapter.getObjectAtPosition(position);
-                mdbViewModel.getById(object.getImageId()).observe(searchMemesFragment.this, new Observer<List<memesDBObject>>() {
-                    @Override
-                    public void onChanged(List<memesDBObject> memesDBObjects) {
-                        if(memesDBObjects.size()==0){
-                            Toast.makeText(getActivity(), "Added ", Toast.LENGTH_SHORT).show();
-//                            mdbViewModel.insert(object);
-                            Intent intent = new Intent(getActivity(), downloadService.class);
-                            intent.putExtra("url", object.getFullPath());
-                            intent.putExtra("receiver", new downloadResultReceiver(new Handler()));
-                            intent.putExtra("fileName",object.getImageId()+".gif");
-                            Objects.requireNonNull(getActivity()).startService(intent);
-                        }else{
-                            Toast.makeText(getActivity(), "Already exist", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG,"and name is "+memesDBObjects.get(0).getTitle());
-                        }
-                    }
-                });
+                Intent intent = new Intent(getActivity(), downloadService.class);
+                intent.putExtra("url", object.getFullPath());
+                intent.putExtra("position",position);
+                downloadResultReceiver downloadResultReceiver =new downloadResultReceiver(new Handler());
+                downloadResultReceiver.addListener(searchMemesFragment.this);
+                intent.putExtra("receiver", downloadResultReceiver);
+                intent.putExtra("fileName",object.getImageId()+".gif");
+                Objects.requireNonNull(getActivity()).startService(intent);
             }
         });
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
@@ -176,6 +174,27 @@ public class searchMemesFragment extends Fragment {
             recyclerView = null;
         }
     }
-
+    @Override
+    public void doSomeTaskInDB(final int position) {
+//        Toast.makeText(getActivity(), "At position "+position, Toast.LENGTH_SHORT).show();
+        final memesDBObject object=memesAdapter.getObjectAtPosition(position);
+        object.setDownloaded(true);
+        object.setFullPath(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getImageId()+".gif");// id here is hash
+        Log.d("commongLogs"," after download we have path as "+Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath());
+        object.setUriPath(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath())).toString());
+        Log.d("commongLogs"," after download we have uri as "+object.getUriPath());
+        mdbViewModel.getById(object.getImageId()).observe(searchMemesFragment.this, new Observer<List<memesDBObject>>() {
+            @Override
+            public void onChanged(List<memesDBObject> memesDBObjects) {
+                if(memesDBObjects.size()==0){
+                    Toast.makeText(getActivity(), "Added at position "+position, Toast.LENGTH_SHORT).show();
+                    mdbViewModel.insert(object);
+                }else{
+                    Toast.makeText(getActivity(), "Already exist at position"+position, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG,"and name is "+memesDBObjects.get(0).getTitle());
+                }
+            }
+        });
+    }
 
 }

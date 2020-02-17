@@ -21,20 +21,29 @@ public class downloadResultReceiver extends ResultReceiver {
         super(handler);
     }
 
+    public interface callDB{
+        void doSomeTaskInDB(int position);
+    }
+    private callDB listenerToCompletion;
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData) {
 
         super.onReceiveResult(resultCode, resultData);
 
         if (resultCode == downloadService.UPDATE_PROGRESS) {
-
+            int position =resultData.getInt("position");
             int progress = resultData.getInt("progress"); //get the progress
 //            dialog.setProgress(progress);
 //
-//            if (progress == 100) {
+            if (progress == 100) {
 //                dialog.dismiss();
-//            }
+                listenerToCompletion.doSomeTaskInDB(position);
+            }
             Log.d("commonLogs","current downloaded size is "+progress);
         }
+    }
+
+    public void addListener(callDB listener){
+        this.listenerToCompletion=listener;
     }
 }

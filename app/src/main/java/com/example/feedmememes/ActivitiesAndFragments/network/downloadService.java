@@ -36,9 +36,12 @@ public class downloadService extends IntentService {
     }
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        assert intent != null;
         String urlToDownload = intent.getStringExtra("url");
         String filename=intent.getStringExtra("fileName");
         ResultReceiver receiver =  intent.getParcelableExtra("receiver");
+        int position =intent.getIntExtra("position",0);
+        Log.d("commonLogs"," position from intent in downloader is "+position);
         try {
 
             //create url and connect
@@ -64,6 +67,7 @@ public class downloadService extends IntentService {
                 // publishing the progress....
                 Bundle resultData = new Bundle();
                 resultData.putInt("progress" ,(int) (total * 100 / fileLength));
+                resultData.putInt("position",position);
                 receiver.send(UPDATE_PROGRESS, resultData);
                 output.write(data, 0, count);
             }

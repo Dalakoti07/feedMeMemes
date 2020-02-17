@@ -26,6 +26,26 @@ public class imageDetails {
     @Expose
     private String width;
 
+    private boolean downloaded;
+
+    public boolean isDownloaded() {
+        return downloaded;
+    }
+
+    public void setDownloaded(boolean downloaded) {
+        this.downloaded = downloaded;
+    }
+
+    String Uri;
+
+    public String getUri() {
+        return Uri;
+    }
+
+    public void setUri(String uri) {
+        Uri = uri;
+    }
+
     private String title;
 
     public String getTitle() {
@@ -92,9 +112,11 @@ public class imageDetails {
         this.width = width;
     }
 
-    public imageDetails(String hash, String url, String title) {
+    public imageDetails(String hash, String url, String title,boolean isDonwloaded,String uri) {
         this.hash = hash;
         this.url = url;
         this.title = title;
+        this.downloaded=isDonwloaded;
+        this.Uri=uri;
     }
 }

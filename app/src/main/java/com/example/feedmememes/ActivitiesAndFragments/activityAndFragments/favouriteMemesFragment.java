@@ -22,6 +22,7 @@ import com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter;
 import com.example.feedmememes.ActivitiesAndFragments.dbUtils.dbViewModel;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
+import com.example.feedmememes.ActivitiesAndFragments.network.downloadResultReceiver;
 import com.example.feedmememes.R;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class favouriteMemesFragment extends Fragment {
             @Override
             public void onChanged(List<memesDBObject> memesDBObjects) {
                 convertDBListToAdapterList(memesDBObjects);
-                Toast.makeText(getActivity(), "total fav memes are " +memesDBObjects.size(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "total fav memes are " +memesDBObjects.size(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -64,8 +65,10 @@ public class favouriteMemesFragment extends Fragment {
     private void convertDBListToAdapterList(List<memesDBObject> memesDBObjects) {
         for(memesDBObject object: memesDBObjects){
                 Log.d("commonTag"," db stuff title :"+object.getTitle()+" url is :"+object.fullPath);
-                imageList.add(new imageDetails(object.getImageId(),object.getFullPath(),object.getTitle()));
+                imageList.add(new imageDetails(object.getImageId(),object.getFullPath(),object.getTitle(),true,object.getUriPath()));
             }
         memesAdapter.notifyDataSetChanged();
     }
+
+
 }
