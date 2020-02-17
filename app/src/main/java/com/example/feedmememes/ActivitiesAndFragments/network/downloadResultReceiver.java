@@ -29,14 +29,17 @@ public class downloadResultReceiver extends ResultReceiver {
     protected void onReceiveResult(int resultCode, Bundle resultData) {
 
         super.onReceiveResult(resultCode, resultData);
-
+        int position =-1;
         if (resultCode == downloadService.UPDATE_PROGRESS) {
-            int position =resultData.getInt("position");
+            if(position==-1){
+                position =resultData.getInt("position");
+            }
             int progress = resultData.getInt("progress"); //get the progress
 //            dialog.setProgress(progress);
 //
             if (progress == 100) {
 //                dialog.dismiss();
+                Log.d("commonLogs","position value at receiver is  "+position);
                 listenerToCompletion.doSomeTaskInDB(position);
             }
             Log.d("commonLogs","current downloaded size is "+progress);

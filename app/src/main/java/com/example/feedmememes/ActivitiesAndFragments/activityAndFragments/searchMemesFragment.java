@@ -190,8 +190,7 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
                     Toast.makeText(getActivity(), "Added at position "+position, Toast.LENGTH_SHORT).show();
                     mdbViewModel.insert(object);
                 }else{
-                    Toast.makeText(getActivity(), "Already exist at position"+position, Toast.LENGTH_SHORT).show();
-                    Log.d(TAG,"and name is "+memesDBObjects.get(0).getTitle());
+                    Toast.makeText(getActivity(), "Already exist at position "+position, Toast.LENGTH_SHORT).show();
                 }
             }
         });

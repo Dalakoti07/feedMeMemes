@@ -34,7 +34,7 @@ import java.util.List;
 public class favouriteMemesFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<imageDetails> imageList= new ArrayList<>();
-    private final com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter memesAdapter= new memesAdapter(imageList);
+    private final com.example.feedmememes.ActivitiesAndFragments.adapter.favMemesAdapter memesAdapter= new favMemesAdapter(imageList);
 
 
 
@@ -63,6 +63,7 @@ public class favouriteMemesFragment extends Fragment {
     }
 
     private void convertDBListToAdapterList(List<memesDBObject> memesDBObjects) {
+        imageList.clear();
         for(memesDBObject object: memesDBObjects){
                 Log.d("commonTag"," db stuff title :"+object.getTitle()+" url is :"+object.fullPath);
                 imageList.add(new imageDetails(object.getImageId(),object.getFullPath(),object.getTitle(),true,object.getUriPath()));

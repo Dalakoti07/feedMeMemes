@@ -17,6 +17,8 @@ An android App that show you best of all time memes and make your own memes and 
 
 ## Issues
 1. make button view gone in rv button when clicked in swipe left
-2. usage of same rv in random and fav memes
-3. Download image/gifs in app folder and show it in gallery too
 4. set 12 different themes for app and store status bar color and app bar color in shared prefs
+5. DB is adding useless entry, even not invoked, see the app flow
+6. shared prefs with dagger
+7. fix crash in app first time add fav at sometime
+8. position from receiver is becoming 0, after 100% progress

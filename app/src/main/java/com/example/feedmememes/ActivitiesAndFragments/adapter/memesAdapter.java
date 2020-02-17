@@ -58,14 +58,7 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
         holder.gif_title.setText(mArray.get(position).getTitle());
 //        see how to put place holder while image is loading
         holder.progressBar.setVisibility(View.VISIBLE);
-        if(mArray.get(position).isDownloaded()){
-         Glide.with(parentView)
-                 .load(mArray.get(position).getUri())//Uri.fromFile(new File(mArray.get(position).getHash()))
-                  .into(holder.imageView);
-         Log.d("commonLogs"," path was "+mArray.get(position).getUrl());
-         Log.d("commonLogs"," loading from file system uri is "+Uri.fromFile(new File(mArray.get(position).getUrl())));
-         holder.progressBar.setVisibility(View.GONE);
-        }else{
+
             Glide.with(parentView)
                     .load(mArray.get(position).getUrl())
                     .centerCrop()
@@ -85,7 +78,7 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
                         }
                     })
                     .into(holder.imageView);
-        }
+
     }
 
     @Override

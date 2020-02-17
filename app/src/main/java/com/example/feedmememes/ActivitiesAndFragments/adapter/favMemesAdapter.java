@@ -2,6 +2,7 @@ package com.example.feedmememes.ActivitiesAndFragments.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import com.example.feedmememes.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class favMemesAdapter extends RecyclerView.Adapter<favMemesAdapter.ViewHolder>{
@@ -53,25 +55,21 @@ public class favMemesAdapter extends RecyclerView.Adapter<favMemesAdapter.ViewHo
         holder.gif_title.setText(mArray.get(position).getTitle());
 //        see how to put place holder while image is loading
         holder.progressBar.setVisibility(View.VISIBLE);
-        Glide.with(parentView)
-                .load(mArray.get(position).getUrl())
-                .centerCrop()
-                .thumbnail(0.1f)
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
-                .into(holder.imageView);
-
+        Uri uri=Uri.fromFile(new File(mArray.get(position).getUrl()));
+        if(mArray.get(position).isDownloaded()){
+            Glide.with(parentView)
+                    .load(uri)//Uri.fromFile(new File(mArray.get(position).getHash()))
+                    .centerCrop()
+                    .into(holder.imageView);
+//            Log.d("commonLogs"," path was "+mArray.get(position).getUrl());
+            Log.d("commonLogs"," loading from file system, uri is "+ uri);
+            switch (uri.toString()){
+                case "file:///storage/emulated/0/Download/228418b4f4347a94700ea30526b56235.gif": Log.d("commonlog"," match one"); break;
+                case "file:///storage/emulated/0/Download/e2baf02d2393de9ff2ce37971ab11534.gif": Log.d("commonlog"," match two"); break;
+                case "file:///storage/emulated/0/Download/9392e44c930a5023c19e29e028ce61a5.gif": Log.d("commonlog"," match three"); break;
+            }
+            holder.progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
