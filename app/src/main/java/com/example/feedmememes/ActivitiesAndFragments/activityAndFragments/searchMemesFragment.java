@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,8 @@ import com.example.feedmememes.ActivitiesAndFragments.dbUtils.dbViewModel;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
+import com.example.feedmememes.ActivitiesAndFragments.network.downloadResultReceiver;
+import com.example.feedmememes.ActivitiesAndFragments.network.downloadService;
 import com.example.feedmememes.ActivitiesAndFragments.network.requestForDownload;
 import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
 import com.example.feedmememes.R;
@@ -83,7 +86,12 @@ public class searchMemesFragment extends Fragment {
                     public void onChanged(List<memesDBObject> memesDBObjects) {
                         if(memesDBObjects.size()==0){
                             Toast.makeText(getActivity(), "Added ", Toast.LENGTH_SHORT).show();
-                            mdbViewModel.insert(object);
+//                            mdbViewModel.insert(object);
+                            Intent intent = new Intent(getActivity(), downloadService.class);
+                            intent.putExtra("url", object.getFullPath());
+                            intent.putExtra("receiver", new downloadResultReceiver(new Handler()));
+                            intent.putExtra("fileName",object.getImageId()+".gif");
+                            Objects.requireNonNull(getActivity()).startService(intent);
                         }else{
                             Toast.makeText(getActivity(), "Already exist", Toast.LENGTH_SHORT).show();
                             Log.d(TAG,"and name is "+memesDBObjects.get(0).getTitle());
