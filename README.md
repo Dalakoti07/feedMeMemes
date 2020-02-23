@@ -11,16 +11,16 @@ An android App that show you best of all time memes and make your own memes and 
 7. Scroll unlimited to get more and more memes
 8. Optimal Caching usage 
 
-#Screenshots
+# Screenshots
 <h1>Dynamic Theming </h1>
 <div style="display:flex;" >
-<img src="screenshot/theme1.png" width="50%"/>
-<img src="screenshot/theme2.png" style="margin-left:10px;" width="50%"/>
+<img src="screenshot/theme1.png" width="40%"/>
+<img src="screenshot/theme2.png" style="margin-left:10px;" width="40%"/>
 </div>
 
 <div style="display:flex;" >
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png" width="50%"/>
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png" width="50%" style="margin-left:10px;"/>
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png" width="40%"/>
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png" width="40%" style="margin-left:10px;"/>
 </div>
 
 <br>
