@@ -59,7 +59,6 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
     private RecyclerView recyclerView;
     private SearchView searchView;
     private dbViewModel mdbViewModel;
-    private FloatingActionButton floatingActionButton;
 
     public searchMemesFragment() {
     }
@@ -71,8 +70,8 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
         View view= inflater.inflate(R.layout.fragment_search_memes, container, false);
         recyclerView=view.findViewById(R.id.memesRecyclerView);
         searchView=view.findViewById(R.id.search_view);
-        floatingActionButton=view.findViewById(R.id.floating_action_button);
-        floatingActionButton.setBackgroundColor(Color.parseColor(constantsClass.currentDarkPrimaryColor));
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.floating_action_button);
+//        floatingActionButton.getDrawable().mutate().setTint(Color.parseColor(constantsClass.currentDarkPrimaryColor));
         return view;
     }
 
