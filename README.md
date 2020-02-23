@@ -15,13 +15,13 @@ An android App that show you best of all time memes and make your own memes and 
 <h1>Dynamic Theming </h1>
 <div style="display:flex;" >
 <img src="screenshot/theme1.png" width="40%"/>
-<div width="20%"></div>
+<div width="10%"></div>
 <img src="screenshot/theme2.png" width="40%"/>
 </div>
 
 <div style="display:flex;" >
 <img src="screenshot/theme3.png" width="40%"/>
-<div width="20%"></div>
+<div width="10%"></div>
 <img src="screenshot/theme4.png" width="40%" />
 </div>
 
@@ -35,12 +35,12 @@ An android App that show you best of all time memes and make your own memes and 
 <h1>Search your favourite memes </h1>
 <div style="display:flex;" >
 <img src="screenshot/search1.png" width="40%"/>
-<div width="20%"></div>
+<div width="10%"></div>
 <img src="screenshot/search2.png" width="40%"/>
 </div>
 
 ## Credits
-<img src="https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg" height="64px" width="64px">
+https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg <img src="https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg" height="64px" width="64px">
 
 
 ## Database debugging
