@@ -3,6 +3,7 @@ package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
 
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -37,6 +38,7 @@ import com.example.feedmememes.ActivitiesAndFragments.network.downloadResultRece
 import com.example.feedmememes.ActivitiesAndFragments.network.downloadService;
 import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
 import com.example.feedmememes.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.net.URI;
@@ -57,6 +59,7 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
     private RecyclerView recyclerView;
     private SearchView searchView;
     private dbViewModel mdbViewModel;
+    private FloatingActionButton floatingActionButton;
 
     public searchMemesFragment() {
     }
@@ -68,6 +71,8 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
         View view= inflater.inflate(R.layout.fragment_search_memes, container, false);
         recyclerView=view.findViewById(R.id.memesRecyclerView);
         searchView=view.findViewById(R.id.search_view);
+        floatingActionButton=view.findViewById(R.id.floating_action_button);
+        floatingActionButton.setBackgroundColor(Color.parseColor(constantsClass.currentDarkPrimaryColor));
         return view;
     }
 
@@ -120,7 +125,6 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
             @Override
             public boolean onQueryTextSubmit(String query) {
 //                called when we click search button keypad
-//                Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
                 getSearchMemes(memesViewModel,query);
                 return false;
             }

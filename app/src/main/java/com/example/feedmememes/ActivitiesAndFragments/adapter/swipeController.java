@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.feedmememes.ActivitiesAndFragments.models.constantsClass;
+
 import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE;
 enum ButtonsState {
     GONE,
@@ -145,7 +147,7 @@ public class swipeController extends ItemTouchHelper.Callback {
         Paint p = new Paint();
 
         RectF leftButton = new RectF(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom());
-        p.setColor(Color.BLUE);
+        p.setColor(Color.parseColor(constantsClass.currentPrimaryColor));
         c.drawRoundRect(leftButton, corners, corners, p);
         drawText("Add to Favourite", c, leftButton, p);
 

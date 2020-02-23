@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         int index =rand.nextInt(7);
         primaryCode=primaryColorsList.get(index);
         primaryDarkCode=primaryDarkColorList.get(index);
+        constantsClass.currentPrimaryColor=getResources().getString(primaryCode);
+        constantsClass.currentDarkPrimaryColor=getResources().getString(primaryDarkCode);
     }
 
     private   boolean isStoragePermissionGranted() {
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
