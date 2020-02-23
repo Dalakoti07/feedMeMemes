@@ -15,12 +15,14 @@ An android App that show you best of all time memes and make your own memes and 
 <h1>Dynamic Theming </h1>
 <div style="display:flex;" >
 <img src="screenshot/theme1.png" width="40%"/>
-<img src="screenshot/theme2.png" style="margin-left:10%;" width="40%"/>
+<div width="20%"></div>
+<img src="screenshot/theme2.png" width="40%"/>
 </div>
 
 <div style="display:flex;" >
 <img src="screenshot/theme3.png" width="40%"/>
-<img src="screenshot/theme4.png" width="40%" style="margin-left:15%;"/>
+<div width="20%"></div>
+<img src="screenshot/theme4.png" width="40%" />
 </div>
 
 <br>
@@ -33,7 +35,8 @@ An android App that show you best of all time memes and make your own memes and 
 <h1>Search your favourite memes </h1>
 <div style="display:flex;" >
 <img src="screenshot/search1.png" width="40%"/>
-<img src="screenshot/search2.png" width="40%" style="margin-left:10%;"/>
+<div width="20%"></div>
+<img src="screenshot/search2.png" width="40%"/>
 </div>
 
 ## Credits
