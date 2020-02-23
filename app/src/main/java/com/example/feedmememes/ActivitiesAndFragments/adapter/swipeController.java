@@ -149,7 +149,7 @@ public class swipeController extends ItemTouchHelper.Callback {
         RectF leftButton = new RectF(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom());
         p.setColor(Color.parseColor(constantsClass.currentPrimaryColor));
         c.drawRoundRect(leftButton, corners, corners, p);
-        drawText("Add to Favourite", c, leftButton, p);
+        drawText("Favourite", c, leftButton, p);
 
         buttonInstance = null;
         if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {

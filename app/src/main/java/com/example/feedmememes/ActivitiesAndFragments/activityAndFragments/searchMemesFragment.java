@@ -196,6 +196,7 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
             public void onChanged(List<memesDBObject> memesDBObjects) {
                 if(memesDBObjects.size()==0){
                     Toast.makeText(getActivity(), "element at position Added to database "+position, Toast.LENGTH_SHORT).show();
+                    Log.d(constantsClass.logTag," insertingintodb ");
                     mdbViewModel.insert(object);
                 }else{
                     Toast.makeText(getActivity(), "Already exist in database "+position, Toast.LENGTH_SHORT).show();

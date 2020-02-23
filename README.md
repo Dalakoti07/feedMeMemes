@@ -17,10 +17,7 @@ An android App that show you best of all time memes and make your own memes and 
 
 ## Issues
 1. make button view gone in rv button when clicked in swipe left
-4. set 12 different themes for app and store status bar color and app bar color in shared prefs
-5. DB is adding useless entry, even not invoked, see the app flow
 6. shared prefs with dagger
-7. fix crash in app first time add fav at sometime
-8. position from receiver is becoming 0, after 100% progress
-9. change the color of favourite rectangle swipe option as per dark primary color
 10. debug it and see the flow, what is going wrong
+11. First item is inserted twice, and some more issues
+12. to bebug the Database, when port is printed  use command - adb forward tcp:8080 tcp:8080, for starting debugging in android app

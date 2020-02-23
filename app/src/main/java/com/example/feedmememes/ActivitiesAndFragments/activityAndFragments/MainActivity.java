@@ -29,7 +29,6 @@ import java.util.Objects;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-//    adb forward tcp:8080 tcp:8080 for starting debugging in android app
     String urls="";
     private int primaryDarkCode=R.string.primaryDarkOne,primaryCode=R.string.primaryOne;
     @SuppressLint("ResourceAsColor")
