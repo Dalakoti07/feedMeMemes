@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
@@ -13,7 +14,7 @@ import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {memesDBObject.class}, version = 1)
+@Database(entities = {memesDBObject.class}, version = 2)
 public abstract class appDatabase extends RoomDatabase {
     public abstract memesDBObjectDao getMemesDBObjectDao();
 
@@ -34,6 +35,7 @@ public abstract class appDatabase extends RoomDatabase {
             });
         }
     };
+
     static appDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (appDatabase.class) {

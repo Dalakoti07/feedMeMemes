@@ -29,6 +29,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+//    adb forward tcp:8080 tcp:8080 for starting debugging in android app
     String urls="";
     private int primaryDarkCode=R.string.primaryDarkOne,primaryCode=R.string.primaryOne;
     @SuppressLint("ResourceAsColor")
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(constantsClass.logTag,"Permission is granted");
                 return true;
             } else {
-
                 Log.v(constantsClass.logTag,"Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;

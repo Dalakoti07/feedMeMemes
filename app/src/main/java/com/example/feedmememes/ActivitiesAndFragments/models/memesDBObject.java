@@ -8,9 +8,12 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "meme_table")
 public class memesDBObject {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id")
+    public int id;
+
+    @ColumnInfo(name = "hash")
     public String imageId;
 
     @ColumnInfo(name = "fullPath")

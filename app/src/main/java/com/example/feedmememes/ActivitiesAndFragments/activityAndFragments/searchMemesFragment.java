@@ -90,7 +90,7 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
                     @Override
                     public void onChanged(List<memesDBObject> memesDBObjects) {
                         if(memesDBObjects.size()==0){
-                            Toast.makeText(getActivity(), "Added at position "+position, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Adding item at position to fav list"+position, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getActivity(), downloadService.class);
                             intent.putExtra("url", object.getFullPath());
                             intent.putExtra("position",position);
@@ -100,7 +100,7 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
                             intent.putExtra("fileName",object.getImageId()+".gif");
                             Objects.requireNonNull(getActivity()).startService(intent);
                         }else{
-                            Toast.makeText(getActivity(), "Already exist at position "+position, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Already exist in favourite list "+position, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -195,10 +195,10 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
             @Override
             public void onChanged(List<memesDBObject> memesDBObjects) {
                 if(memesDBObjects.size()==0){
-                    Toast.makeText(getActivity(), "Added at position "+position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "element at position Added to database "+position, Toast.LENGTH_SHORT).show();
                     mdbViewModel.insert(object);
                 }else{
-                    Toast.makeText(getActivity(), "Already exist at position "+position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Already exist in database "+position, Toast.LENGTH_SHORT).show();
                 }
             }
         });
