@@ -29,6 +29,7 @@ import com.example.feedmememes.ActivitiesAndFragments.adapter.memesAdapter;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.swipeController;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.swipeControllerActions;
 import com.example.feedmememes.ActivitiesAndFragments.dbUtils.dbViewModel;
+import com.example.feedmememes.ActivitiesAndFragments.models.constantsClass;
 import com.example.feedmememes.ActivitiesAndFragments.models.imageDetails;
 import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
@@ -58,7 +59,6 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
     private dbViewModel mdbViewModel;
 
     public searchMemesFragment() {
-        // Required empty public constructor
     }
 
 
@@ -68,7 +68,6 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
         View view= inflater.inflate(R.layout.fragment_search_memes, container, false);
         recyclerView=view.findViewById(R.id.memesRecyclerView);
         searchView=view.findViewById(R.id.search_view);
-//        manager=(DownloadManager) Objects.requireNonNull(getActivity()).getSystemService(Context.DOWNLOAD_SERVICE);
         return view;
     }
 
@@ -139,7 +138,7 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
             @Override
             public void onChanged(trendingMemesResponse trendingMemesResponse) {
                 if(trendingMemesResponse.getData().size()>0){
-                    Log.d(TAG," size is response is "+trendingMemesResponse.getData().size());
+                    Log.d(constantsClass.logTag," size is response is "+trendingMemesResponse.getData().size());
                     List<com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData> memesDataList=trendingMemesResponse.getData();
                     for (com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse.memesData each: memesDataList){
                         imageDetails temporaryImage= each.getImages().getOriginal();
@@ -185,9 +184,9 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
         final memesDBObject object=memesAdapter.getObjectAtPosition(position);
         object.setDownloaded(true);
         object.setFullPath(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getImageId()+".gif");// id here is hash
-        Log.d("commongLogs"," after download we have path as "+Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath());
+        Log.d(constantsClass.logTag," after download we have path as "+Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath());
         object.setUriPath(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath())).toString());
-        Log.d("commongLogs"," after download we have uri as "+object.getUriPath());
+        Log.d(constantsClass.logTag," after download we have uri as "+object.getUriPath());
 //        cross checking, to avoid loop hole in insertion and avoiding crash
         mdbViewModel.getById(object.getImageId()).observe(searchMemesFragment.this, new Observer<List<memesDBObject>>() {
             @Override

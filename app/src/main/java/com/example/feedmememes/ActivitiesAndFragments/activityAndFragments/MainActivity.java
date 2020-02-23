@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.amitshekhar.DebugDB;
 import com.example.feedmememes.ActivitiesAndFragments.adapter.mainPageAdapter;
+import com.example.feedmememes.ActivitiesAndFragments.models.constantsClass;
 import com.example.feedmememes.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -29,7 +31,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     String urls="";
     private int primaryDarkCode=R.string.primaryDarkOne,primaryCode=R.string.primaryOne;
-    private String TAG="commonTag";
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
         isStoragePermissionGranted();
-
+        Log.d(constantsClass.logTag," url for debugging db is "+ DebugDB.getAddressLog());
 //        set status bar and app bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -76,17 +77,17 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG,"Permission is granted");
+                Log.v(constantsClass.logTag,"Permission is granted");
                 return true;
             } else {
 
-                Log.v(TAG,"Permission is revoked");
+                Log.v(constantsClass.logTag,"Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
         }
         else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG,"Permission is granted");
+            Log.v(constantsClass.logTag,"Permission is granted");
             return true;
         }
     }

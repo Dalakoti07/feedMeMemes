@@ -59,25 +59,25 @@ public class memesAdapter extends RecyclerView.Adapter<memesAdapter.ViewHolder> 
 //        see how to put place holder while image is loading
         holder.progressBar.setVisibility(View.VISIBLE);
 
-            Glide.with(parentView)
-                    .load(mArray.get(position).getUrl())
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .thumbnail(0.1f)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            holder.progressBar.setVisibility(View.GONE);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            holder.progressBar.setVisibility(View.GONE);
-                            return false;
-                        }
-                    })
-                    .into(holder.imageView);
+//            Glide.with(parentView)
+//                    .load(mArray.get(position).getUrl())
+//                    .centerCrop()
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .thumbnail(0.1f)
+//                    .listener(new RequestListener<Drawable>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                            holder.progressBar.setVisibility(View.GONE);
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                            holder.progressBar.setVisibility(View.GONE);
+//                            return false;
+//                        }
+//                    })
+//                    .into(holder.imageView);
 
     }
 

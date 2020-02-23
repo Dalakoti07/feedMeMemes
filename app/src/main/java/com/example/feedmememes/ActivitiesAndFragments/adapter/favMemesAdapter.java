@@ -57,18 +57,17 @@ public class favMemesAdapter extends RecyclerView.Adapter<favMemesAdapter.ViewHo
         holder.progressBar.setVisibility(View.VISIBLE);
         Uri uri=Uri.fromFile(new File(mArray.get(position).getUrl()));
         if(mArray.get(position).isDownloaded()){
-            Glide.with(parentView)
-                    .load(uri)//Uri.fromFile(new File(mArray.get(position).getHash()))
-                    .centerCrop()
-                    .into(holder.imageView);
-//            Log.d("commonLogs"," path was "+mArray.get(position).getUrl());
-            Log.d("commonLogs"," loading from file system, uri is "+ uri);
-            switch (uri.toString()){
-                case "file:///storage/emulated/0/Download/228418b4f4347a94700ea30526b56235.gif": Log.d("commonlog"," match one"); break;
-                case "file:///storage/emulated/0/Download/e2baf02d2393de9ff2ce37971ab11534.gif": Log.d("commonlog"," match two"); break;
-                case "file:///storage/emulated/0/Download/9392e44c930a5023c19e29e028ce61a5.gif": Log.d("commonlog"," match three"); break;
-            }
-            holder.progressBar.setVisibility(View.GONE);
+//            Glide.with(parentView)
+//                    .load(uri)
+//                    .centerCrop()
+//                    .into(holder.imageView);
+//            Log.d(constantsClass.logTag," loading from file system, uri is "+ uri);
+//            switch (uri.toString()){
+//                case "file:///storage/emulated/0/Download/228418b4f4347a94700ea30526b56235.gif": Log.d(constantsClass.logTag," match one"); break;
+//                case "file:///storage/emulated/0/Download/e2baf02d2393de9ff2ce37971ab11534.gif": Log.d(constantsClass.logTag," match two"); break;
+//                case "file:///storage/emulated/0/Download/9392e44c930a5023c19e29e028ce61a5.gif": Log.d(constantsClass.logTag," match three"); break;
+//            }
+//            holder.progressBar.setVisibility(View.GONE);
         }
     }
 

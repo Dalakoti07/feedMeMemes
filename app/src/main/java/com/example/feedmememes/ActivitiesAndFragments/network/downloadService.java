@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.feedmememes.ActivitiesAndFragments.models.constantsClass;
+
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -76,7 +78,7 @@ public class downloadService extends IntentService {
             output.flush();
             output.close();
             input.close();
-            Log.d("commonLogs"," file is saved in "+Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+filename );
+            Log.d(constantsClass.logTag," file is saved in "+Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+filename );
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.support.v4.os.ResultReceiver;
 import android.util.Log;
 
+import com.example.feedmememes.ActivitiesAndFragments.models.constantsClass;
+
 public class downloadResultReceiver extends ResultReceiver {
 
     /**
@@ -39,10 +41,10 @@ public class downloadResultReceiver extends ResultReceiver {
 //
             if (progress == 100) {
 //                dialog.dismiss();
-                Log.d("commonLogs","position value at receiver is  "+position);
+                Log.d(constantsClass.logTag,"position value at receiver is  "+position);
                 listenerToCompletion.doSomeTaskInDB(position);
             }
-            Log.d("commonLogs","current downloaded size is "+progress);
+            Log.d(constantsClass.logTag,"current downloaded size is "+progress);
         }
     }
 
