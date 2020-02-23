@@ -15,32 +15,28 @@ An android App that show you best of all time memes and make your own memes and 
 <h1>Dynamic Theming </h1>
 <div style="display:flex;" >
 <img src="screenshot/theme1.png" width="40%"/>
-<img src="screenshot/theme2.png" style="margin-left:10px;" width="40%"/>
+<img src="screenshot/theme2.png" style="margin-left:10%;" width="40%"/>
 </div>
 
 <div style="display:flex;" >
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png" width="40%"/>
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png" width="40%" style="margin-left:10px;"/>
+<img src="screenshot/theme3.png" width="40%"/>
+<img src="screenshot/theme4.png" width="40%" style="margin-left:15%;"/>
 </div>
 
 <br>
 <h1>Add your favourite meme</h1>
 <p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/addtofav.png" width="50%"/>
+<img src="screenshot/addtofav.png" width="50%"/>
 </p>
 
 <br>
 <h1>Search your favourite memes </h1>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search1.png"/>
-</p>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search2.png"/>
-</p>
+<img src="screenshot/search1.png" width="45%"/>
+<img src="screenshot/search2.png" width="45%" style="margin-left:5%;"/>
 
 
 ## Credits
-1. [source for icon] (https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg)
+1. <img src="https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg" height="64px" width="64px">
 
 
 ## Database debugging
