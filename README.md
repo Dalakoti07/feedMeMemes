@@ -13,18 +13,10 @@ An android App that show you best of all time memes and make your own memes and 
 
 #Screenshots
 <h1>Dynamic Theming </h1>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme1.png"/>
-</p>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme2.png"/>
-</p>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png"/>
-</p>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png"/>
-</p>
+Theme Example One             |  Theme Example Two
+:----------------------------:|:----------------------------:
+![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme1.png)      |  ![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme2.png)
+![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png)      |  ![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png)
 
 <br>
 <h1>Add your favourite meme</h1>
@@ -34,12 +26,10 @@ An android App that show you best of all time memes and make your own memes and 
 
 <br>
 <h1>Search your favourite memes </h1>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search1.png"/>
-</p>
-<p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search2.png"/>
-</p>
+Search Example One             |  Search Example Two
+:----------------------------:|:----------------------------:
+![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search1.png)      |  ![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search2.png)
+
 
 
 ## Credits
