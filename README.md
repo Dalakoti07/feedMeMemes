@@ -13,23 +13,30 @@ An android App that show you best of all time memes and make your own memes and 
 
 #Screenshots
 <h1>Dynamic Theming </h1>
-Theme Example One             |  Theme Example Two
-:----------------------------:|:----------------------------:
-![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme1.png)      |  ![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme2.png)
-![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png)      |  ![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png)
+<div style="display:flex;" >
+<img src="screenshot/theme1.png" width="50%"/>
+<img src="screenshot/theme2.png" style="margin-left:10px;" width="50%"/>
+</div>
+
+<div style="display:flex;" >
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme3.png" width="50%"/>
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/theme4.png" width="50%" style="margin-left:10px;"/>
+</div>
 
 <br>
 <h1>Add your favourite meme</h1>
 <p align="center">
-<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/addtofav.png" />
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/addtofav.png" width="50%"/>
 </p>
 
 <br>
 <h1>Search your favourite memes </h1>
-Search Example One             |  Search Example Two
-:----------------------------:|:----------------------------:
-![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search1.png)      |  ![](https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search2.png)
-
+<p align="center">
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search1.png"/>
+</p>
+<p align="center">
+<img src="https://github.com/Dalakoti07/feedMeMemes/blob/master/screenshot/search2.png"/>
+</p>
 
 
 ## Credits
