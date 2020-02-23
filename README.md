@@ -31,9 +31,10 @@ An android App that show you best of all time memes and make your own memes and 
 
 <br>
 <h1>Search your favourite memes </h1>
+<div style="display:flex;" >
 <img src="screenshot/search1.png" width="40%"/>
 <img src="screenshot/search2.png" width="40%" style="margin-left:10%;"/>
-
+</div>
 
 ## Credits
 <img src="https://img.freepik.com/free-vector/colored-background-man-laughing_23-2147631736.jpg?size=338&ext=jpg" height="64px" width="64px">
