@@ -1,14 +1,9 @@
 package com.example.feedmememes.ActivitiesAndFragments.activityAndFragments;
 
 
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,7 +34,6 @@ import com.example.feedmememes.ActivitiesAndFragments.models.memesDBObject;
 import com.example.feedmememes.ActivitiesAndFragments.models.trendingMemesResponse;
 import com.example.feedmememes.ActivitiesAndFragments.network.downloadResultReceiver;
 import com.example.feedmememes.ActivitiesAndFragments.network.downloadService;
-import com.example.feedmememes.ActivitiesAndFragments.network.requestForDownload;
 import com.example.feedmememes.ActivitiesAndFragments.viewModels.memesViewModel;
 import com.example.feedmememes.R;
 
@@ -88,14 +82,25 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
             @Override
             public void onLeftClicked(final int position) {
                 final memesDBObject object=memesAdapter.getObjectAtPosition(position);
-                Intent intent = new Intent(getActivity(), downloadService.class);
-                intent.putExtra("url", object.getFullPath());
-                intent.putExtra("position",position);
-                downloadResultReceiver downloadResultReceiver =new downloadResultReceiver(new Handler());
-                downloadResultReceiver.addListener(searchMemesFragment.this);
-                intent.putExtra("receiver", downloadResultReceiver);
-                intent.putExtra("fileName",object.getImageId()+".gif");
-                Objects.requireNonNull(getActivity()).startService(intent);
+
+                mdbViewModel.getById(object.getImageId()).observe(searchMemesFragment.this, new Observer<List<memesDBObject>>() {
+                    @Override
+                    public void onChanged(List<memesDBObject> memesDBObjects) {
+                        if(memesDBObjects.size()==0){
+                            Toast.makeText(getActivity(), "Added at position "+position, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), downloadService.class);
+                            intent.putExtra("url", object.getFullPath());
+                            intent.putExtra("position",position);
+                            downloadResultReceiver downloadResultReceiver =new downloadResultReceiver(new Handler());
+                            downloadResultReceiver.addListener(searchMemesFragment.this);
+                            intent.putExtra("receiver", downloadResultReceiver);
+                            intent.putExtra("fileName",object.getImageId()+".gif");
+                            Objects.requireNonNull(getActivity()).startService(intent);
+                        }else{
+                            Toast.makeText(getActivity(), "Already exist at position "+position, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
@@ -174,15 +179,16 @@ public class searchMemesFragment extends Fragment implements downloadResultRecei
             recyclerView = null;
         }
     }
+
     @Override
     public void doSomeTaskInDB(final int position) {
-//        Toast.makeText(getActivity(), "At position "+position, Toast.LENGTH_SHORT).show();
         final memesDBObject object=memesAdapter.getObjectAtPosition(position);
         object.setDownloaded(true);
         object.setFullPath(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getImageId()+".gif");// id here is hash
         Log.d("commongLogs"," after download we have path as "+Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath());
         object.setUriPath(Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS)+"/"+object.getFullPath())).toString());
         Log.d("commongLogs"," after download we have uri as "+object.getUriPath());
+//        cross checking, to avoid loop hole in insertion and avoiding crash
         mdbViewModel.getById(object.getImageId()).observe(searchMemesFragment.this, new Observer<List<memesDBObject>>() {
             @Override
             public void onChanged(List<memesDBObject> memesDBObjects) {

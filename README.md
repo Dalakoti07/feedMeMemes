@@ -22,3 +22,5 @@ An android App that show you best of all time memes and make your own memes and 
 6. shared prefs with dagger
 7. fix crash in app first time add fav at sometime
 8. position from receiver is becoming 0, after 100% progress
+9. change the color of favourite rectangle swipe option as per dark primary color
+10. debug it and see the flow, what is going wrong
